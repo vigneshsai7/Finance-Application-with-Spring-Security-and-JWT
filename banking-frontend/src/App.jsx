@@ -1,0 +1,8 @@
+import React from 'react';
+import {Routes,Route,Navigate,Link,useLocation} from 'react-router-dom';
+import Login from './pages/Login.jsx'; import Register from './pages/Register.jsx';
+import Dashboard from './pages/Dashboard.jsx'; import Accounts from './pages/Accounts.jsx';
+import Transfer from './pages/Transfer.jsx'; import Transactions from './pages/Transactions.jsx'; import Admin from './pages/Admin.jsx';
+import {getRole} from './api.js';
+function Shell({children}){ const loc=useLocation(); const role=getRole(); const logout=()=>{localStorage.clear(); window.location.href='/login'}; return <div className="layout"><aside className="sidebar"><h2>🏦 Banking Application</h2><Link to="/" className={loc.pathname==='/'?'active':''}>Dashboard</Link><Link to="/accounts">My Accounts</Link><Link to="/transfer">Send Money</Link><Link to="/transactions">Transactions</Link>{role==='ADMIN'&&<Link to="/admin">Admin Panel</Link>}<button onClick={logout} style={{marginTop:20}}>Logout ({role})</button></aside><main className="main">{children}</main></div> }
+export default function App(){ const token=localStorage.getItem('token'); return <Routes><Route path="/login" element={<Login/>}/><Route path="/register" element={<Register/>}/>{token?<><Route path="/" element={<Shell><Dashboard/></Shell>}/><Route path="/accounts" element={<Shell><Accounts/></Shell>}/><Route path="/transfer" element={<Shell><Transfer/></Shell>}/><Route path="/transactions" element={<Shell><Transactions/></Shell>}/><Route path="/admin" element={<Shell><Admin/></Shell>}/></>:<Route path="*" element={<Navigate to="/login"/>}/>}<Route path="*" element={<Navigate to="/"/>}/></Routes> }

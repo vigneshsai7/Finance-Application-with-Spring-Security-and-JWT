@@ -1,0 +1,42 @@
+ Project Structure (Output Structure)
+```
+banking-app/
+├── pom.xml
+├── README.md
+├── README_SETUP.md
+├── README_API.md
+├── README_SECURITY.md
+├── README_INTERVIEW.md
+├── postman_collection.json
+├── src/main/java/com/vignesh/banking/
+│   ├── BankingApplication.java
+│   ├── controller/
+│   │   ├── AuthController.java
+│   │   ├── AccountController.java
+│   │   └── AdminController.java
+│   ├── service/
+│   │   ├── AuthService.java
+│   │   ├── BankingService.java
+│   │   └── AdminService.java
+│   ├── security/
+│   │   ├── SecurityConfig.java
+│   │   ├── JwtService.java
+│   │   ├── JwtAuthFilter.java
+│   │   └── CustomUserDetailsService.java
+│   ├── model/
+│   │   ├── User.java
+│   │   ├── Account.java
+│   │   ├── Transaction.java
+│   │   └── Role.java
+│   ├── repository/
+│   │   ├── UserRepository.java
+│   │   ├── AccountRepository.java
+│   │   └── TransactionRepository.java
+│   └── dto/
+│       ├── AuthRequest.java
+│       ├── AuthResponse.java
+│       └── TransferRequest.java
+└── src/main/resources/
+    └── application.properties
+```
+

@@ -1,0 +1,3 @@
+package com.vignesh.banking.controller;
+import com.vignesh.banking.model.Account;import com.vignesh.banking.service.AdminService;import org.springframework.web.bind.annotation.*;import java.util.List;
+@RestController @RequestMapping("/api/admin") public class AdminController{ private final AdminService s; public AdminController(AdminService s){this.s=s;} @GetMapping("/accounts") public List<Account> all(){return s.allAccounts();} @PostMapping("/accounts/{id}/freeze") public Account freeze(@PathVariable Long id){return s.freeze(id,true);} @PostMapping("/accounts/{id}/unfreeze") public Account unfreeze(@PathVariable Long id){return s.freeze(id,false);} }

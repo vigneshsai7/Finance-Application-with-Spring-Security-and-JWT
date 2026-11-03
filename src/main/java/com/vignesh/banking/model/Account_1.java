@@ -1,0 +1,4 @@
+package com.vignesh.banking.model;
+import jakarta.persistence.*;import java.math.BigDecimal;
+@Entity @Table(name="accounts")
+public class Account{ @Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Long id; @Column(unique=true) private String accountNumber; private BigDecimal balance=BigDecimal.ZERO; private boolean frozen=false; @ManyToOne @JoinColumn(name="user_id") private User owner; public Long getId(){return id;} public void setId(Long i){id=i;} public String getAccountNumber(){return accountNumber;} public void setAccountNumber(String a){accountNumber=a;} public BigDecimal getBalance(){return balance;} public void setBalance(BigDecimal b){balance=b;} public boolean isFrozen(){return frozen;} public void setFrozen(boolean f){frozen=f;} public User getOwner(){return owner;} public void setOwner(User u){owner=u;} }

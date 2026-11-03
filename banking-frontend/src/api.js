@@ -1,0 +1,6 @@
+const BASE='http://localhost:8080';
+export function getToken(){return localStorage.getItem('token')}
+export function getRole(){return localStorage.getItem('role')}
+export async function api(path, options={}){ const res=await fetch(BASE+path,{...options, headers:{'Content-Type':'application/json', ...(getToken()?{Authorization:'Bearer '+getToken()}:{}), ...(options.headers||{})}}); const text=await res.text(); let data; try{data=JSON.parse(text)}catch{data=text} if(!res.ok) throw new Error(typeof data==='string'?data:(data.message||'Request failed')); return data; }
+export const authApi={ login:(e,p)=>api('/api/auth/login',{method:'POST',body:JSON.stringify({email:e,password:p})}), register:(fullName,email,password,role)=>api('/api/auth/register',{method:'POST',body:JSON.stringify({fullName,email,password,role})}) };
+export const bankApi={ me:()=>api('/api/accounts/me'), transfer:(fromAccount,toAccount,amount)=>api('/api/accounts/transfer',{method:'POST',body:JSON.stringify({fromAccount,toAccount,amount})}), history:(id,page=0)=>api(`/api/accounts/${id}/transactions?page=${page}&size=10`), adminAll:()=>api('/api/admin/accounts'), freeze:(id)=>api(`/api/admin/accounts/${id}/freeze`,{method:'POST'}), unfreeze:(id)=>api(`/api/admin/accounts/${id}/unfreeze`,{method:'POST'}) };

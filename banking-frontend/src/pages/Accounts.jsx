@@ -1,0 +1,2 @@
+import React,{useEffect,useState} from 'react'; import {bankApi} from '../api.js';
+export default function Accounts(){ const [accounts,setAccounts]=useState([]); useEffect(()=>{bankApi.me().then(setAccounts).catch(e=>alert(e.message))},[]); return <div><h1>My Accounts</h1>{accounts.map(a=><div key={a.id} className="card"><b>{a.accountNumber}</b><p>Balance: ₹ {a.balance}</p><p>Status: {a.frozen?<span className="frozen">Frozen</span>:'Active'}</p></div>)}</div> }
